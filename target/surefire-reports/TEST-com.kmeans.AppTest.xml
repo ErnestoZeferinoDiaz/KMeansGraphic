@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.kmeans.AppTest" time="0.007" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.kmeans.AppTest" time="0.008" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
     <property name="java.specification.version" value="11"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp\target\test-classes;D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp\target\classes;D:\Users\ZefeDios\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="java.class.path" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app\target\test-classes;D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app\target\classes;D:\Users\ZefeDios\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="user.variant" value=""/>
@@ -17,9 +17,9 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="MX"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-11\bin"/>
-    <property name="sun.java.command" value="C:\Users\ZefeDios\AppData\Local\Temp\surefire18273327640067926613\surefirebooter-20250417031937704_3.jar C:\Users\ZefeDios\AppData\Local\Temp\surefire18273327640067926613 2025-04-17T03-19-37_517-jvmRun1 surefire-20250417031937704_1tmp surefire_0-20250417031937704_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\ZefeDios\AppData\Local\Temp\surefire2963067506795412677\surefirebooter-20250417033356894_3.jar C:\Users\ZefeDios\AppData\Local\Temp\surefire2963067506795412677 2025-04-17T03-33-56_707-jvmRun1 surefire-20250417033356894_1tmp surefire_0-20250417033356894_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="surefire.test.class.path" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp\target\test-classes;D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp\target\classes;D:\Users\ZefeDios\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
+    <property name="surefire.test.class.path" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app\target\test-classes;D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app\target\classes;D:\Users\ZefeDios\.m2\repository\junit\junit\3.8.1\junit-3.8.1.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\ZefeDios"/>
     <property name="user.language" value="es"/>
@@ -27,13 +27,13 @@
     <property name="java.version.date" value="2024-07-16"/>
     <property name="java.home" value="C:\Program Files\Java\jdk-11"/>
     <property name="file.separator" value="\"/>
-    <property name="basedir" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp"/>
+    <property name="basedir" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\ZefeDios\AppData\Local\Temp\surefire18273327640067926613\surefirebooter-20250417031937704_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\ZefeDios\AppData\Local\Temp\surefire2963067506795412677\surefirebooter-20250417033356894_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.24+7-LTS-271"/>
@@ -48,7 +48,7 @@
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\ZefeDios\AppData\Local\Temp\"/>
     <property name="java.version" value="11.0.24"/>
-    <property name="user.dir" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\KmeansApp"/>
+    <property name="user.dir" value="D:\Users\ZefeDios\Documentos\PERSONAL\GitHub\my-app"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
