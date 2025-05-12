@@ -1,37 +1,61 @@
-package com.zefe.kmeans.impl;
+package com.zefe.kmeans.algoritm.impl;
 
-import com.zefe.kmeans.IDistance;
-import com.zefe.kmeans.IPoint;
+import com.zefe.kmeans.algoritm.IConditionLoop;
+import com.zefe.kmeans.algoritm.IDistance;
+import com.zefe.kmeans.algoritm.IPoint;
 
-import java.util.ArrayList;
-
-public class KMeans {
+public class KMeans extends KMeansSubject {
     private static final KMeans km = new KMeans();
     private IDistance calculatorDistance;
     private IPoint[] points;
     private IPoint[] centroidsOrigin;
     private IPoint[] centroidsUpdate;
     private byte[] indexCentroidsForEachPoint;
+    private IConditionLoop conditionLoop;
 
-    private KMeans(){
-
-    }
+    private KMeans(){ }
 
     public static KMeans getInstance(){
         return km;
     }
 
-    public byte[] getIndexCentroidsForEachPoint(){
-        return this.indexCentroidsForEachPoint;
+    public IPoint[] getCentroidsUpdate(){ return this.centroidsUpdate; }
+    public byte[] getRelationCentroidsForEachPoint() { return this.indexCentroidsForEachPoint; }
+
+    public void executeLoop(){
+        boolean isEqualsCentroids = true;
+        int iteration = 0;
+
+        while(isEqualsCentroids){
+            isEqualsCentroids = this.oneLoop(iteration);
+            iteration = iteration + 1;
+        }
     }
 
-    public IPoint[] getCentroidsUpdate(){
-        return this.centroidsUpdate;
-    }
+    public boolean oneLoop(int iteration){
+        DataKMeans dataKMeansBefore, dataKMeansAfter;
+        boolean isEqualsCentroids;
 
-    public void execute(){
         this.relatePointsToCentroids();
+        dataKMeansBefore = new DataKMeans(this.points,this.centroidsOrigin,this.indexCentroidsForEachPoint);
+        this.notifyRelatedPointsObservers(dataKMeansBefore,iteration);
+
         this.updatedCentroids();
+        dataKMeansAfter = new DataKMeans(this.points,this.centroidsUpdate,this.indexCentroidsForEachPoint);
+        this.notifyIterationExecutedObservers(dataKMeansBefore, dataKMeansAfter, iteration);
+
+        this.conditionLoop.calculateConditionLoop(this.centroidsOrigin, this.centroidsUpdate, iteration);
+        isEqualsCentroids = this.conditionLoop.isNextLoop();
+
+        if(isEqualsCentroids){
+            this.centroidsOrigin = this.centroidsUpdate;
+            this.centroidsUpdate = null;
+            this.indexCentroidsForEachPoint = null;
+        }else{
+            this.notifyIterationCompletedObservers();
+        }
+
+        return isEqualsCentroids;
     }
 
     private void updatedCentroids(){
@@ -104,14 +128,20 @@ public class KMeans {
         return indexNearestCentroid;
     }
 
+    public void setData(IPoint[] points, IPoint[] centroids){
+        this.clear();
+        this.points = points;
+        this.centroidsOrigin = centroids;
+    }
+
     public void setData(DataKMeans dataKMeans){
-        this.points = dataKMeans.getPoints();
-        this.centroidsOrigin = dataKMeans.getCentroids();
+        this.setData(dataKMeans.getPoints(), dataKMeans.getCentroids());
     }
 
     public void setCalculatorDistance(IDistance calculatorDistance){
         this.calculatorDistance = calculatorDistance;
     }
+    public void setConditionLoop(IConditionLoop conditionLoop){ this.conditionLoop = conditionLoop; }
 
     public void clear(){
         this.centroidsUpdate = null;
@@ -119,5 +149,6 @@ public class KMeans {
         this.indexCentroidsForEachPoint = null;
         this.points = null;
     }
+
 
 }

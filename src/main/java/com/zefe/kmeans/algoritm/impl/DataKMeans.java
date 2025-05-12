@@ -1,6 +1,6 @@
-package com.zefe.kmeans.impl;
+package com.zefe.kmeans.algoritm.impl;
 
-import com.zefe.kmeans.IPoint;
+import com.zefe.kmeans.algoritm.IPoint;
 
 public class DataKMeans {
     private Point[] points;
@@ -11,6 +11,24 @@ public class DataKMeans {
         this.points = null;
         this.centroids = null;
         this.relationsPointsWithCentroid = null;
+    }
+
+    public DataKMeans(IPoint[] points){
+        this.points = (Point[]) points;
+        this.centroids = null;
+        this.relationsPointsWithCentroid = null;
+    }
+
+    public DataKMeans(IPoint[] points, IPoint[] centroids){
+        this.points = (Point[]) points;
+        this.centroids = (Centroid[]) centroids;
+        this.relationsPointsWithCentroid = null;
+    }
+
+    public DataKMeans(IPoint[] points, IPoint[] centroids, byte[] relationsPointsWithCentroid){
+        this.points = (Point[]) points;
+        this.centroids = (Centroid[]) centroids;
+        this.relationsPointsWithCentroid = relationsPointsWithCentroid;
     }
 
     public Point[] getPoints(){

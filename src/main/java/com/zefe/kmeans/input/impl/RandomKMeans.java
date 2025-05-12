@@ -1,16 +1,12 @@
-package com.zefe.input.impl;
+package com.zefe.kmeans.input.impl;
 
-import com.zefe.input.IKMeansInput;
-import com.zefe.kmeans.impl.Centroid;
-import com.zefe.kmeans.impl.Point;
-import com.zefe.kmeans.impl.DataKMeans;
-
-import javax.swing.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import com.zefe.kmeans.input.IKMeansInput;
+import com.zefe.kmeans.algoritm.impl.Centroid;
+import com.zefe.kmeans.algoritm.impl.Point;
+import com.zefe.kmeans.algoritm.impl.DataKMeans;
 import java.util.Random;
 
-public class RandomKMeans implements IKMeansInput, ComponentListener {
+public class RandomKMeans implements IKMeansInput {
     private static final RandomKMeans randomKMeans = new RandomKMeans();
     private final Random random = new Random();
     private int numberPoints;
@@ -20,9 +16,7 @@ public class RandomKMeans implements IKMeansInput, ComponentListener {
     private int minY;
     private int maxY;
 
-    private RandomKMeans(){
-
-    }
+    private RandomKMeans(){ }
 
     public static RandomKMeans getInstance(){
         return randomKMeans;
@@ -52,13 +46,6 @@ public class RandomKMeans implements IKMeansInput, ComponentListener {
         return points;
     }
 
-    @Override
-    public void componentResized(ComponentEvent e) {
-        JFrame frame = (JFrame) e.getComponent();
-        this.setRangeX(100,frame.getWidth()-100);
-        this.setRangeY(100,frame.getHeight()-100);
-    }
-
     public void setNumberItems(int numberPoints, int numberCentroids){
         this.numberPoints = numberPoints;
         this.numberCentroids = numberCentroids;
@@ -86,10 +73,4 @@ public class RandomKMeans implements IKMeansInput, ComponentListener {
         return new Centroid(x,y);
     }
 
-    @Override
-    public void componentMoved(ComponentEvent e) {}
-    @Override
-    public void componentShown(ComponentEvent e) {}
-    @Override
-    public void componentHidden(ComponentEvent e) {}
 }

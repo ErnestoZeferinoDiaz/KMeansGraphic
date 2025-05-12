@@ -1,7 +1,7 @@
-package com.zefe.kmeans.impl;
+package com.zefe.kmeans.algoritm.impl;
 
-import com.zefe.kmeans.IDistance;
-import com.zefe.kmeans.IPoint;
+import com.zefe.kmeans.algoritm.IDistance;
+import com.zefe.kmeans.algoritm.IPoint;
 
 public class EuclideanDistance implements IDistance {
     private static final EuclideanDistance instanceEuclideanDistance = new EuclideanDistance();
