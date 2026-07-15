@@ -1,8 +1,12 @@
 package com.zefe.kmeans.gui;
 
+import com.zefe.kmeans.design.ColorManager;
+import com.zefe.kmeans.design.impl.CentroidsDesigner;
+import com.zefe.kmeans.design.impl.ColorRandomProvider;
 import com.zefe.kmeans.design.impl.PlaneDesigner;
 import com.zefe.kmeans.design.impl.PointsDesigner;
 import com.zefe.kmeans.gui.event.AddDataActionListener;
+import com.zefe.kmeans.gui.event.ExecuteAndAnimationActionListener;
 import com.zefe.kmeans.gui.event.PlaneComponentListener;
 import com.zefe.kmeans.input.impl.Canva;
 import com.zefe.kmeans.model.IModel;
@@ -22,8 +26,7 @@ public class Context {
     }
 
     public void init(){
-        PlaneDesigner planeDesigner = new PlaneDesigner();
-        PointsDesigner pointsDesigner = new PointsDesigner();
+
 
         this.dataFormInput = this.getFormWindow();
         this.planeFrame = this.getPlaneWindow();
@@ -31,10 +34,8 @@ public class Context {
         this.planeFrame.getContentPane().add(this.planeDraw);
 
         this.dataFormInput.btnAddData.addActionListener(new AddDataActionListener(this.dataFormInput,this.planeDraw, this.iModel));
+        this.dataFormInput.btnCalculateAndRun.addActionListener(new ExecuteAndAnimationActionListener(this.planeDraw, this.iModel));
         this.planeDraw.addComponentListener(new PlaneComponentListener(this.planeDraw,this.iModel));
-
-        this.planeDraw.setIDesigners(planeDesigner);
-        planeDesigner.setIDesigner(pointsDesigner);
 
         this.dataFormInput.setVisible(true);
         this.planeFrame.setVisible(true);
@@ -60,10 +61,12 @@ public class Context {
     public Canva getPlaneCanva(){
         Canva planeCanva = new Canva();
         PlaneDesigner planeDesigner = new PlaneDesigner();
-        PointsDesigner pointsDesigner = new PointsDesigner();
+        PointsDesigner pointsDesigner = new PointsDesigner(new ColorManager(new ColorRandomProvider()));
+        CentroidsDesigner centroidsDesigner = new CentroidsDesigner();
 
         planeCanva.addIDesigner(planeDesigner);
         planeDesigner.setIDesigner(pointsDesigner);
+        pointsDesigner.setIDesigner(centroidsDesigner);
 
         return planeCanva;
     }
