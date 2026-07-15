@@ -35,29 +35,27 @@ public class CalculateController implements ActionListener {
             return;
         }
 
-        final int k = this.store.getCentroidCount();
-        this.planePanel.rebuildPalette(k);
+        this.setButtonsEnabled(false);
+        this.planePanel.rebuildPalette(this.store.getCentroidCount());
 
         SwingWorker<long[], Void> worker = new SwingWorker<long[], Void>() {
             @Override
             protected long[] doInBackground() throws Exception {
                 long t0 = System.currentTimeMillis();
                 CalculateController.this.service.execute();
-                long tCalc = System.currentTimeMillis() - t0;
-                return new long[]{tCalc};
+                long tTotal = System.currentTimeMillis() - t0;
+                return new long[]{tTotal};
             }
 
             @Override
             protected void done() {
+                CalculateController.this.setButtonsEnabled(true);
+                CalculateController.this.planePanel.markDirty();
+                CalculateController.this.planePanel.repaint();
                 try {
                     long[] result = this.get();
-                    long t0 = System.currentTimeMillis();
-                    CalculateController.this.planePanel.markDirty();
-                    CalculateController.this.planePanel.repaint();
-                    long tPaint = System.currentTimeMillis() - t0;
                     int iters = CalculateController.this.store.getIterations();
-                    System.out.println("KMeans finalizado | calc=" + result[0] + "ms | paint=" + tPaint
-                            + "ms | iteraciones=" + iters);
+                    System.out.println("KMeans finalizado | tiempoTotal=" + result[0] + "ms | iteraciones=" + iters);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(CalculateController.this.form,
@@ -66,5 +64,11 @@ public class CalculateController implements ActionListener {
             }
         };
         worker.execute();
+    }
+
+    private void setButtonsEnabled(boolean enabled) {
+        this.form.btnAddData.setEnabled(enabled);
+        this.form.btnCalculate.setEnabled(enabled);
+        this.form.btnClear.setEnabled(enabled);
     }
 }

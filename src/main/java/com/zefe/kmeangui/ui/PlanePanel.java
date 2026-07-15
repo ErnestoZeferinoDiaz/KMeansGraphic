@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Arrays;
 
 public class PlanePanel extends JPanel {
 
@@ -19,6 +20,7 @@ public class PlanePanel extends JPanel {
 
     private final DataStore dataStore;
     private int[] palette = new int[0];
+    private int paletteSize = -1;
 
     private BufferedImage baseImage;
     private BufferedImage mainImage;
@@ -40,6 +42,10 @@ public class PlanePanel extends JPanel {
     public void rebuildPalette(int k) {
         if (k <= 0) {
             this.palette = new int[0];
+            this.paletteSize = -1;
+            return;
+        }
+        if (k == this.paletteSize) {
             return;
         }
         int[] p = new int[k];
@@ -50,6 +56,7 @@ public class PlanePanel extends JPanel {
             p[i] = hsvToRgb(h, s, v);
         }
         this.palette = p;
+        this.paletteSize = k;
     }
 
     private static int hsvToRgb(float h, float s, float v) {
@@ -157,7 +164,7 @@ public class PlanePanel extends JPanel {
     private BufferedImage buildBaseImage(int w, int h) {
         BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         int[] raster = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
-        java.util.Arrays.fill(raster, POINT_BG);
+        Arrays.fill(raster, POINT_BG);
         Graphics2D g = img.createGraphics();
         g.setColor(new Color(GRID_COLOR));
         for (int x = 0; x < w; x += 20) {

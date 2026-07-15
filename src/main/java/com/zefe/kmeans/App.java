@@ -2,6 +2,7 @@ package com.zefe.kmeans;
 
 import com.zefe.kmeangui.domain.service.KMeansAlgoritmService;
 import com.zefe.kmeangui.infrastructure.DataStore;
+import com.zefe.kmeangui.infrastructure.KMeansAnimationAdapter;
 import com.zefe.kmeangui.infrastructure.KMeansResourcesAdapter;
 import com.zefe.kmeangui.infrastructure.KMeansUpdateAdapter;
 import com.zefe.kmeangui.infrastructure.RandomPointGenerator;
@@ -23,14 +24,15 @@ public class App {
             DataStore store = new DataStore();
             store.setRange(20, 800, 20, 600);
 
-            KMeansResourcesAdapter resourcesAdapter = new KMeansResourcesAdapter(store);
-            KMeansUpdateAdapter updateAdapter = new KMeansUpdateAdapter(store);
-            KMeansAlgoritmService service = new KMeansAlgoritmService(resourcesAdapter, updateAdapter);
-
             RandomPointGenerator generator = new RandomPointGenerator();
 
             PlanePanel planePanel = new PlanePanel(store);
             PlaneFrame planeFrame = new PlaneFrame(planePanel);
+
+            KMeansResourcesAdapter resourcesAdapter = new KMeansResourcesAdapter(store);
+            KMeansUpdateAdapter updateAdapter = new KMeansUpdateAdapter(store);
+            KMeansAnimationAdapter animationAdapter = new KMeansAnimationAdapter(store, planePanel, 300);
+            KMeansAlgoritmService service = new KMeansAlgoritmService(resourcesAdapter, updateAdapter, animationAdapter);
 
             DataFormInput form = new DataFormInput();
             form.setTitle("Formulario");

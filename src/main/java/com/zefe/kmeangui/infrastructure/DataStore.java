@@ -110,11 +110,15 @@ public class DataStore {
         return new PointSet(this.centroidsX, this.centroidsY, this.centroidCount);
     }
 
+    public void setDisplayState(int[] assignment, int[] centroidXs, int[] centroidYs, int centroidCount) {
+        this.assignment = assignment;
+        this.resultCentroidXs = centroidXs;
+        this.resultCentroidYs = centroidYs;
+        this.resultCentroidCount = centroidCount;
+    }
+
     public void saveResult(ClusterResult result) {
-        this.assignment = result.getAssignment();
-        this.resultCentroidXs = result.getCentroidXs();
-        this.resultCentroidYs = result.getCentroidYs();
-        this.resultCentroidCount = result.getCentroidCount();
+        this.setDisplayState(result.getAssignment(), result.getCentroidXs(), result.getCentroidYs(), result.getCentroidCount());
         this.iterations = result.getIterations();
     }
 
