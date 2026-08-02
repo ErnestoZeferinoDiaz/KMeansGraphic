@@ -80,14 +80,20 @@ public class KMeansAlgoritmService {
     }
 
     private int[] initCentroidXs(PointSet centroids, int k) {
+        int[] src = centroids.getXs();
         int[] xs = new int[k];
-        System.arraycopy(centroids.getXs(), 0, xs, 0, k);
+        for (int i = 0; i < k; i++) {
+            xs[i] = src[i];
+        }
         return xs;
     }
 
     private int[] initCentroidYs(PointSet centroids, int k) {
+        int[] src = centroids.getYs();
         int[] ys = new int[k];
-        System.arraycopy(centroids.getYs(), 0, ys, 0, k);
+        for (int i = 0; i < k; i++) {
+            ys[i] = src[i];
+        }
         return ys;
     }
 
@@ -166,8 +172,10 @@ public class KMeansAlgoritmService {
 
     private void commitCentroids(int[] centroidXs, int[] centroidYs,
                                 int[] newCentroidXs, int[] newCentroidYs, int k) {
-        System.arraycopy(newCentroidXs, 0, centroidXs, 0, k);
-        System.arraycopy(newCentroidYs, 0, centroidYs, 0, k);
+        for (int i = 0; i < k; i++) {
+            centroidXs[i] = newCentroidXs[i];
+            centroidYs[i] = newCentroidYs[i];
+        }
     }
 
     private void notifyIteration(int[] assignment, int[] centroidXs, int[] centroidYs, int k, int iteration) {

@@ -51,8 +51,10 @@ public class DataStore {
         int[] newXs = new int[newCount];
         int[] newYs = new int[newCount];
         if (this.centroidsX != null && this.centroidCount > 0) {
-            System.arraycopy(this.centroidsX, 0, newXs, 0, this.centroidCount);
-            System.arraycopy(this.centroidsY, 0, newYs, 0, this.centroidCount);
+            for (int i = 0; i < this.centroidCount; i++) {
+                newXs[i] = this.centroidsX[i];
+                newYs[i] = this.centroidsY[i];
+            }
         }
         newXs[this.centroidCount] = x;
         newYs[this.centroidCount] = y;

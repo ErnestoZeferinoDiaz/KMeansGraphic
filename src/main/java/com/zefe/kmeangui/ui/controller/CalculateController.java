@@ -6,7 +6,6 @@ import com.zefe.kmeangui.ui.DataFormInput;
 import com.zefe.kmeangui.ui.PlanePanel;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,37 +37,33 @@ public class CalculateController implements ActionListener {
         this.setButtonsEnabled(false);
         this.planePanel.rebuildPalette(this.store.getCentroidCount());
 
-        SwingWorker<long[], Void> worker = new SwingWorker<long[], Void>() {
-            @Override
-            protected long[] doInBackground() throws Exception {
-                long t0 = System.currentTimeMillis();
-                CalculateController.this.service.execute();
-                long tTotal = System.currentTimeMillis() - t0;
-                return new long[]{tTotal};
-            }
-
-            @Override
-            protected void done() {
-                CalculateController.this.setButtonsEnabled(true);
-                CalculateController.this.planePanel.markDirty();
-                CalculateController.this.planePanel.repaint();
-                try {
-                    long[] result = this.get();
-                    int iters = CalculateController.this.store.getIterations();
-                    System.out.println("KMeans finalizado | tiempoTotal=" + result[0] + "ms | iteraciones=" + iters);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(CalculateController.this.form,
-                            "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        };
-        worker.execute();
+        Thread worker = new Thread(new KMeansRunnable(), "KMeans-Worker");
+        worker.start();
     }
 
     private void setButtonsEnabled(boolean enabled) {
         this.form.btnAddData.setEnabled(enabled);
         this.form.btnCalculate.setEnabled(enabled);
         this.form.btnClear.setEnabled(enabled);
+    }
+
+    private class KMeansRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            long t0 = System.currentTimeMillis();
+            try {
+                CalculateController.this.service.execute();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                long tTotal = System.currentTimeMillis() - t0;
+                int iters = CalculateController.this.store.getIterations();
+                CalculateController.this.planePanel.markDirty();
+                CalculateController.this.planePanel.repaint();
+                CalculateController.this.setButtonsEnabled(true);
+                System.out.println("KMeans finalizado | tiempoTotal=" + tTotal + "ms | iteraciones=" + iters);
+            }
+        }
     }
 }

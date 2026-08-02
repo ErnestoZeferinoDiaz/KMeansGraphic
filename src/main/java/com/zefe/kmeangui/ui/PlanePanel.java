@@ -40,15 +40,18 @@ public class PlanePanel extends JPanel {
     }
 
     public void rebuildPalette(int k) {
+        int[] p = new int[k];
+        
         if (k <= 0) {
             this.palette = new int[0];
             this.paletteSize = -1;
             return;
         }
+        
         if (k == this.paletteSize) {
             return;
         }
-        int[] p = new int[k];
+        
         for (int i = 0; i < k; i++) {
             float h = (float) i / (float) k;
             float s = 0.85f;
@@ -107,7 +110,10 @@ public class PlanePanel extends JPanel {
     private void renderIntoMain(int w, int h) {
         int[] raster = ((DataBufferInt) this.mainImage.getRaster().getDataBuffer()).getData();
         int[] baseRaster = ((DataBufferInt) this.baseImage.getRaster().getDataBuffer()).getData();
-        System.arraycopy(baseRaster, 0, raster, 0, w * h);
+        int len = w * h;
+        for (int i = 0; i < len; i++) {
+            raster[i] = baseRaster[i];
+        }
 
         int[] px = this.dataStore.getPointsX();
         int[] py = this.dataStore.getPointsY();

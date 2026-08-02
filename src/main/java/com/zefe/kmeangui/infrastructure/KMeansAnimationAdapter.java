@@ -3,8 +3,6 @@ package com.zefe.kmeangui.infrastructure;
 import com.zefe.kmeangui.domain.port.IKmeansIterationPort;
 import com.zefe.kmeangui.ui.PlanePanel;
 
-import javax.swing.SwingUtilities;
-
 public class KMeansAnimationAdapter implements IKmeansIterationPort {
 
     private final DataStore dataStore;
@@ -22,35 +20,15 @@ public class KMeansAnimationAdapter implements IKmeansIterationPort {
         this.dataStore.setDisplayState(assignment, centroidXs, centroidYs, centroidCount);
         this.planePanel.rebuildPalette(centroidCount);
         this.planePanel.markDirty();
-        this.paintSync();
+        this.planePanel.repaint();
         System.out.println("Iteracion " + iteration + " pintada");
         this.sleep();
     }
 
     @Override
     public void onCompleted(int iterations) {
-        this.paintSync();
+        this.planePanel.repaint();
         System.out.println("KMeans completado en " + iterations + " iteraciones");
-    }
-
-    private void paintSync() {
-        if (SwingUtilities.isEventDispatchThread()) {
-            this.paintNow();
-        } else {
-            try {
-                SwingUtilities.invokeAndWait(this::paintNow);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void paintNow() {
-        int w = this.planePanel.getWidth();
-        int h = this.planePanel.getHeight();
-        if (w > 0 && h > 0) {
-            this.planePanel.paintImmediately(0, 0, w, h);
-        }
     }
 
     private void sleep() {
